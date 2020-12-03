@@ -13,3 +13,31 @@
     justify-content: center;
     align-items: center;
 }
+
+#start-container {
+    width: 20px;
+}
+
+#count {
+    font-size: large;
+    font-weight: bold;
+    color: red;
+}
+
+/* Question and paragraph font size */
+p, #question-title {
+    font-size: larger;
+}
+
+/* Start button format */
+.btn {
+    color: white;
+    background-color: #333333;
+    font-size: x-large;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.hide {
+    display: none;
+}

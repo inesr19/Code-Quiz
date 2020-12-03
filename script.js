@@ -74,3 +74,12 @@ function checkQuestion() {
         nextQuestion();
     }, 1000)
 }
+
+// Event Listener
+startButton.addEventListener("click", startQuiz)
+answersEl.addEventListener("click", showQuestion)
+
+
+
+// Entry point
+showQuestion(currentQuestion);

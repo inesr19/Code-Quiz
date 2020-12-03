@@ -1,4 +1,4 @@
-.card.text-center {
-    margin: auto;
-    margin-top: 15%;
+/* Box size for all elements */
+*, ::before, *::after {
+    box-sizing: border-box;
 }

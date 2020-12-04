@@ -9,3 +9,5 @@ The purpose of this project was to create a quiz that tested coding fundamentals
 ![code-quiz screenshot](https://github.com/inesr19/Code-Quiz/blob/main/assets/images/code-quiz.png)
 
 ### Link
+
+<https://inesr19.github.io/Code-Quiz/>

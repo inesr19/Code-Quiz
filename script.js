@@ -1,4 +1,4 @@
-// Start and Question variables
+// Variables
 var startButton = document.getElementById("start-container");
 var questionContainer = document.getElementById("question-container");
 var questionTitle = document.getElementById("question-title");
@@ -8,6 +8,7 @@ var wrong = document.getElementById("wrong-answer");
 var currentQuestion = 0;
 // Time variables
 var score = 0;
+// Question and answers object
 var questionsEl = [
 	{
         question: "Arrays in JavaScript can be used to store _____.",
@@ -19,11 +20,26 @@ var questionsEl = [
 		question: "String values must be enclosed within _____ when being assigned to variables.",
 		answers: ['Commas','Curly brackets','Quotations','Parentheses'],
 		answer: 2
-	}
+    },
+    {
+		question: "Commonly used data types DO NOT include:",
+		answers: ['Strings, Booleans, Alerts, Numbers'],
+		answer: 2
+    },
+    {
+		question: "The condition in an if / else statement is enclosed within _____.",
+		answers: ['Quotes, Curly brackets, Parentheses, Square brackets'],
+		answer: 1
+    },
+    {
+		question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+		answers: ['JavaScript, Terminal/bash, For loops, Console log'],
+		answer: 3
+    },
+    
 ];
 
-// Function
-
+//Start container function (tried to hide the dispaly of this container using css)
 function startQuiz() {
     console.log("started");
     startButton.classList.add("hide");
@@ -31,6 +47,7 @@ function startQuiz() {
     showQuestion(currentQuestion);
    }
 
+// Timer function
 document.getElementById("start-button").addEventListener("click", function(){
 var timeLeft = 76;
 var interval = setInterval(function(){
@@ -46,11 +63,7 @@ var interval = setInterval(function(){
 nextQuestion();
 });
 
-const nextQuestion = () => {
-correct.innerHTML = '';
-wrong.innerHTML = '';
-}
-
+// displays question and answers within the buttons and apporpriate id.
 function showQuestion(index) {
     questionTitle.textContent = questionsEl[index].question;
     for (var i=0; i < questionsEl[0].choices.length; i++){
@@ -59,6 +72,8 @@ function showQuestion(index) {
     }
 } 
 
+// Tried to make this function check if the user chose the right answer and display correct or incorrect text.
+// Adding or subtracting time for answer chosen.
 function checkQuestion() {
     if(this.value !== questionsEl[index].answer) {
         timeLeft -= 10;

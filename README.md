@@ -6,7 +6,7 @@ The purpose of this project was to create a quiz that tested coding fundamentals
 
 ### Screenshot
 
-![code-quiz screenshot](https://github.com/inesr19/Code-Quiz/blob/main/assets/images/code-quiz.png)
+![code-quiz screenshot](https://github.com/inesr19/Code-Quiz/blob/main/assets/images/code_quiz.png)
 
 ### Link
 

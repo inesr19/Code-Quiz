@@ -1,100 +1,142 @@
-// Variables
-var startButton = document.getElementById("start-container");
-var questionContainer = document.getElementById("question-container");
-var questionTitle = document.getElementById("question-title");
-var answersEl = document.getElementById("answer");
-var correct = document.getElementById("correct-answer");
-var wrong = document.getElementById("wrong-answer");
-var currentQuestion = 0;
-// Time variables
-var score = 0;
-// Question and answers object
-var questionsEl = [
-	{
-        question: "Arrays in JavaScript can be used to store _____.",
-        choices: ['Numbers and strings', 'Other arrays', 'Booleans', 'All of the above'],
-		answer: 1
- 
-	},
-	{
-		question: "String values must be enclosed within _____ when being assigned to variables.",
-		answers: ['Commas','Curly brackets','Quotations','Parentheses'],
-		answer: 2
+const startBtn = document.getElementById('start-btn')
+const nextBtn = document.getElementById('next-btn')
+const title = document.getElementById('start-container')
+const questionEl = document.getElementById('question')
+const answerButtonsEl = document.getElementById('answer-buttons')
+const questionContainerEl = document.getElementById('question-container')
+var score = 0
+const questions = [
+    {
+        question: 'Arrays in JavaScript can be used to store _____.',
+        answers: [
+            {text: 'Numbers and strings', correct: false},
+            {text: 'Other arrays', correct: true},
+            {text: 'Booleans', correct: false},
+            {text: 'All of the above', correct: false}
+        ]
     },
     {
-		question: "Commonly used data types DO NOT include:",
-		answers: ['Strings, Booleans, Alerts, Numbers'],
-		answer: 2
+        question: 'String values must be enclosed within _____ when being assigned to variables.',
+        answers: [
+            {text: 'Commas', correct: false},
+            {text: 'Curly brackets', correct: false},
+            {text: 'Quotations', correct: true},
+            {text: 'Parentheses', correct: false}
+        ]
     },
     {
-		question: "The condition in an if / else statement is enclosed within _____.",
-		answers: ['Quotes, Curly brackets, Parentheses, Square brackets'],
-		answer: 1
+        question: 'Commonly used data types DO NOT include:',
+        answers: [
+            {text: 'Strings', correct: false},
+            {text: 'Booleans', correct: false},
+            {text: 'Alerts', correct: true},
+            {text: 'Numbers', correct: false}
+        ]
     },
     {
-		question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-		answers: ['JavaScript, Terminal/bash, For loops, Console log'],
-		answer: 3
+        question: 'The condition in an if / else statement is enclosed within _____.',
+        answers: [
+            {text: 'Quotes', correct: false},
+            {text: 'Curly brackets', correct: true},
+            {text: 'Parentheses', correct: false},
+            {text: 'Square brackets', correct: false}
+        ]
     },
-    
-];
+    {
+        question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
+        answers: [
+            {text: 'JavaScript', correct: false},
+            {text: 'Terminal/bash', correct: false},
+            {text: 'For loops', correct: false},
+            {text: 'Console log', correct: true}
+        ]
+    },
+]
 
-//Start container function (tried to hide the dispaly of this container using css)
-function startQuiz() {
-    console.log("started");
-    startButton.classList.add("hide");
-    questionContainer.classList.remove("hide");
-    showQuestion(currentQuestion);
-   }
+let shuffledQuestions, currentQuestionIndex
 
-// Timer function
-document.getElementById("start-button").addEventListener("click", function(){
-var timeLeft = 76;
-var interval = setInterval(function(){
-  document.getElementById('count').innerHTML=timeLeft;
-  timeLeft--;
-  if (timeLeft === 0){
-    clearInterval(interval);
-    document.getElementById('count').innerHTML='Done';
-    // or...
-    document.getElementById('count').innerHTML= 'Times up!';
-  }
-}, 1000);
-nextQuestion();
-});
+startBtn.addEventListener('click', startGame)
+nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion()
+})
 
-// displays question and answers within the buttons and apporpriate id.
-function showQuestion(index) {
-    questionTitle.textContent = questionsEl[index].question;
-    for (var i=0; i < questionsEl[0].choices.length; i++){
-        var answer = document.getElementById("answer" + (i + 1))
-        answer.textContent = questionsEl[0].choices[i];
-    }
-} 
+document.getElementById("start-btn").addEventListener("click", function(){
+    var timeLeft = 76;
+    var interval = setInterval(function(){
+      document.getElementById('count').innerHTML=timeLeft;
+      timeLeft--;
+      if (timeLeft === 0){
+        clearInterval(interval);
+        document.getElementById('count').innerHTML='Done';
+        document.getElementById('count').innerHTML= 'Times up!';
+      } 
+    }, 1000);
+    });
 
-// Tried to make this function check if the user chose the right answer and display correct or incorrect text.
-// Adding or subtracting time for answer chosen.
-function checkQuestion() {
-    if(this.value !== questionsEl[index].answer) {
-        timeLeft -= 10;
-        wrong.textContent = "Incorrect!"
-        console.log("correct")
-    } else if(this.value === questionsEl[index].answer){
-        timeLeft += 10;
-        correct.textContent = "Correct!"
-    }
-    currentQuestion ++
-
-    setTimeout(function(){
-        nextQuestion();
-    }, 1000)
+function startGame() {
+  console.log('started')
+  title.classList.add('hide')
+  startBtn.classList.add('hide')
+  shuffledQuestions = questions.sort(() => Math.random() - .5)
+  currentQuestionIndex = 0
+  questionContainerEl.classList.remove('hide')
+  setNextQuestion()
 }
 
-// Event Listener
-startButton.addEventListener("click", startQuiz)
-answersEl.addEventListener("click", showQuestion)
+function setNextQuestion() {
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
+}
 
+function showQuestion(question) {
+questionEl.innerText = question.question;
+question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+        button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsEl.appendChild(button)
+})
+}
 
+function resetState() {
+    nextBtn.classList.add('hide')
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild)
+    }
+}
 
-// Entry point
-showQuestion(currentQuestion);
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsEl.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if (shuffledQuestions.lenght > currentQuestionIndex + 1){
+        nextBtn.classList.remove('hide')
+    } else {
+        startBtn.innerText = 'Restart'
+        console.log(restart)
+        startBtn.classList.remove('hide')
+    }
+}
+
+ function setStatusClass(element, correct) {
+     clearStatusClass(element)
+     if (correct) {
+     alert("Correct!")
+     } else {
+     this.timeLeft -= 10;
+     alert("Incorrect!")
+     }
+  }
+
+ function clearStatusClass(element) {
+      element.classList.remove('Correct!')
+      element.classList.remove('Incorrect!')
+  }

@@ -1,43 +1,84 @@
 /* Box size for all elements */
-*, ::before, *::after {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
 /* Structure of body */
-.container {
+body {
     padding: 0;
     margin: 0;
     display: flex;
     width: 100vw;
-    height: 100vh;
+    height: 100vh;   
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+}
+
+/* Structure of container */
+.container {
+    width: 800px;
+    max-width: 80%;
+    background-color: ivory;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px;
+}
+
+/* Alignment for start section */
+#start-container {
+text-align: center;
+}
+
+/* Timer style */
+#count {
+    color: red;
+    font-weight: bold;
+}
+
+/* Spacing of buttons */
+.btn-grid {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* Button style */
+.btn {
+    background-color: gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    outline: none;
+}
+
+/* Button style when hovering border-lines */
+.btn:hover {
+    border-color: black;
+}
+
+/* correct answer style */
+.btn-correct {
+    --hue: var(--hue-correct);
+    color: black;
+}
+
+/* wrong answer style */
+.btn-wrong {
+    --hue: var(--hue-wrong);
+    color: black;
+}
+
+/* Start and next button structure and style */
+.start-btn, .next-btn {
+    font-weight: bold;
+    padding: 10px 20px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#start-container {
-    width: 20px;
-}
-
-#count {
-    font-size: large;
-    font-weight: bold;
-    color: red;
-}
-
-/* Question and paragraph font size */
-p, #question-title {
-    font-size: larger;
-}
-
-/* Start button format */
-.btn {
-    color: white;
-    background-color: #333333;
-    font-size: x-large;
-    border-radius: 5px;
-    padding: 5px;
-}
-
+/* Hides each section */
 .hide {
     display: none;
 }
